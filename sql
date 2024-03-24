@@ -3,8 +3,8 @@ create database library;
 use library;
 create table uyeler(
 uye_no int primary key,
-uye_ad nvarchar(50),
-uye_soyad nvarchar(50),
+ad nvarchar(50),
+soyad nvarchar(50),
 cinsiyet char(5),
 e_posta varchar(100),
 telefon int
@@ -29,19 +29,19 @@ constraint adres_no_pk foreign key (adres_no) references adresler([adres_no])
 );
 
 create table kategori(
-kategori_no int primary key,
-kategori_ad nvarchar(50)
+no int primary key,
+ad nvarchar(50)
 );        
 
 create table yazarlar(
-yazar_no int primary key,
-yazar_adi nvarchar(50),
-yazar_soyadi nvarchar(50)
+yazarID int primary key,
+ad nvarchar(50),
+soyad nvarchar(50)
 );
 
 create table kitaplar(
-kitap_no int primary key,
-kitap_adi nvarchar(50),
+no int primary key,
+adi nvarchar(200),
 isbn nvarchar(50),
 sayfa_sayisi int,
 yazar_no int ,
@@ -51,20 +51,20 @@ constraint kategori_no_fk foreign key (kategori_no) references kategori([kategor
 );
 
 create table emanet_kitaplar(
-emanet_no int primary key,
+no int primary key,
 uye_no int,
 kitap_no int,
 miktar int,
-emanet_tarihi datetime,
+tarihi datetime,
 teslim_tarihi datetime
 constraint kitap_no_fk foreign key (kitap_no) references kitaplar ([kitap_no]),
 constraint uye_no_fk foreign key (uye_no) references uyeler([uye_no]),
 );
 
 create table emanet_gecmis (
-    emanet_no int,
-    kitap_no int,
-    uye_no int,
+    no int,
+    no int,
+    no int,
     teslim_tarihi date,
     gecikme_bedeli decimal(10, 3),
     constraint emanet_no_fk foreign key (emanet_no) references emanet_kitaplar ([emanet_no]),
